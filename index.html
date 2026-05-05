@@ -1650,8 +1650,11 @@
         // Como gerar no seu console antes de publicar: btoa(String.fromCharCode(...[..."sua_url"].map(c => c.charCodeAt(0) ^ 42)))
         // Exemplo com chave 42. Substitua os placeholders abaixo pelas strings geradas.
         const encryptedLinks = {
-            'vip': 'Ojo6Pjs6Pjo+Pjo6Pjs+', // Placeholder
-            'premium': 'Ojo6Pjs6Pjo+Pjo6Pjs+' // Placeholder
+            'semanal': 'Ql5eWlkQBQVaS1NGX0dPBExLRFkFSQVIT0ZTB1xDWg==',
+            'mensal': 'Ql5eWlkQBQVaS1NGX0dPBExLRFkFSQVcQ1oHR09EWUtGB05ISBI=',
+            'vitalicio': 'Ql5eWlkQBQVES0VHT0lGRURLWkVYTEtcRVgESUVHBUkFXENaB1xDXktGQ0lDRQdLTk9J',
+            'vip': 'Ql5eWlkQBQVaS1NGX0dPBExLRFkFSQVcQ1oHR09EWUtGB05ISBI=', // Fallback para mensal
+            'premium': 'Ql5eWlkQBQVES0VHT0lGRURLWkVYTEtcRVgESUVHBUkFXENaB1xDXktGQ0lDRQdLTk9J' // Fallback para vitalício
         };
         const xorKey = 42;
 
