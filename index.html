@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quartinho da Bely 🔥 Conteúdo Exclusivo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables - Referência: Rosa Choque + Preto + Dourado */
+        :root {
+            --bg-color: #0a0a0a;
+            --text-main: #ffffff;
+            --text-muted: #aaaaaa;
+            --hot-pink: #FF007F;          /* Rosa choque principal */
+            --hot-pink-dark: #cc0066;      /* Rosa mais escuro (hover) */
+            --neon-pink: #FF007F;          /* Alias usado no resto do código */
+            --neon-pink-hover: #cc0066;
+            --gold: #f5c842;               /* Dourado dos botões CTA */
+            --gold-dark: #d4a820;
+            --purple: #9B00FF;
+            --card-bg: #141414;
+            --card-border: rgba(255,0,127,0.15);
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: none;
+        }
+
+        h1, h2, h3, .hero-brand, .section-title {
+            font-family: 'Montserrat', 'Poppins', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+        }
+
+        /* Glassmorphism Classes */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+        }
+
+        /* Anti-Cheat Overlay (invisível por padrão) */
+        #anti-cheat-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            color: red;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999999;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* GATE +18 */
+        #gate-18 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 100000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            text-align: center;
+        }
+        #gate-18 h1 { color: var(--neon-pink); margin-bottom: 15px; font-size: 32px; }
+        #gate-18 p { margin-bottom: 30px; font-size: 16px; max-width: 400px; color: var(--text-muted); }
+        .gate-btn-group { display: flex; gap: 15px; flex-direction: column; width: 100%; max-width: 300px; }
+        /* ---- BOTÕES GLOBAIS ---- */
+        .btn-primary {
+            background: var(--hot-pink);
+            color: white;
+            padding: 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(255,0,127,0.45);
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn-primary:active { transform: scale(0.95); }
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.6);
+            padding: 15px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+        /* Dourado CTA (estilo referência) */
+        .btn-gold-wrap {
+            position: relative;
+            width: 100%;
+            border-radius: 50px;
+        }
+        /* Sombra suave abaixo do botão */
+        .btn-gold-wrap::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 10%;
+            width: 80%;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(245, 180, 0, 0.25);
+            filter: blur(10px);
+            z-index: 0;
+        }
+        .btn-gold {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(110deg, #f5c842 0%, #ffb300 40%, #f5c842 60%, #ffe066 100%);
+            background-size: 250% 100%;
+            color: #1a0a00;
+            padding: 18px 30px;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow:
+                0 6px 30px rgba(245,200,66,0.5),
+                0 2px 0 rgba(255,255,255,0.25) inset,
+                0 -2px 0 rgba(0,0,0,0.15) inset;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            overflow: hidden;
+            animation: goldShimmer 2.8s linear infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        /* Sweep de brilho passando pelo botão */
+        .btn-gold::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%);
+            transform: skewX(-20deg);
+            animation: btnSweep 2.8s ease-in-out infinite;
+        }
+        @keyframes btnSweep {
+            0%   { left: -75%; opacity: 0; }
+            20%  { opacity: 1; }
+            50%  { left: 125%; opacity: 0; }
+            100% { left: 125%; opacity: 0; }
+        }
+        @keyframes goldShimmer {
+            0%   { background-position: 0% center; }
+            100% { background-position: 250% center; }
+        }
+        .btn-gold:active { transform: scale(0.96); box-shadow: 0 2px 10px rgba(245,200,66,0.4); }
+        .btn-gold .btn-icon { font-size: 22px; flex-shrink: 0; }
+        .btn-gold .btn-text-wrap { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .btn-gold .btn-text-main { font-size: 15px; font-weight: 900; line-height: 1.2; white-space: nowrap; letter-spacing: 1px; }
+        .btn-gold .btn-text-sub  { font-size: 9px; font-weight: 600; opacity: 0.65; letter-spacing: 0.5px; margin-top: 3px; white-space: nowrap; }
+
+        /* ---- SOCIAL HEADER ---- */
+        .social-header {
+            background: var(--hot-pink);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            font-size: 13px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        .social-header a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .social-header svg { width: 18px; height: 18px; flex-shrink: 0; }
+        .social-divider { color: rgba(255,255,255,0.5); font-size: 16px; }
+
+        /* ---- HERO FULL BG ---- */
+        .hero {
+            padding: 0;
+            text-align: center;
+            position: relative;
+            background: #0a0a0a;
+            /* A altura agora é definida pela própria foto */
+        }
+
+        .hero-bg-photo {
+            width: 100%;
+            height: auto;
+            display: block;
+            pointer-events: none;
+            -webkit-user-drag: none;
+        }
+
+        /* Gradiente escuro no rodapé para mesclar com o resto do site */
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0; right: 0;
+            height: 30%;
+            background: linear-gradient(to top, #0a0a0a 15%, transparent 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 3;
+            padding: 20px 20px 40px;
+            width: 100%;
+        }
+
+        .hero-eyebrow {
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.85);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 52px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 18px;
+            text-shadow: 0 4px 25px rgba(0,0,0,0.8);
+            padding: 0 10px;
+        }
+
+        /* Info badges */
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 0;
+        }
+        .hero-badge {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 8px 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 90px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .hero-badge-icon { font-size: 16px; margin-bottom: 2px; }
+        .hero-badge-label {
+            font-size: 14px;
+            font-weight: 900;
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            line-height: 1;
+        }
+        .hero-badge-val {
+            font-size: 10px;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ==========================================
+           SALES NOTIFICATION POPUP
+        ========================================== */
+        .sales-notification {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 0, 127, 0.3);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 10px;
+            padding: 8px 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 210px;
+            opacity: 0;
+            transform: translateY(-15px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            pointer-events: none;
+        }
+
+        .sales-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sales-icon {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(245, 200, 66, 0.4);
+        }
+
+        .sales-text {
+            color: #fff;
+            font-size: 10px;
+            line-height: 1.2;
+            text-align: left;
+        }
+
+        .sales-text strong {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .sales-time {
+            display: block;
+            font-size: 8px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 1px;
+        }
+
+        /* Foto da Bely */
+        .hero-photo-wrap {
+            display: flex;
+            justify-content: center;
+        }
+        .hero-photo {
+            width: 100%;
+            max-width: 320px;
+            display: block;
+            object-fit: cover;
+            pointer-events: none;
+            -webkit-user-drag: none;
+            border-radius: 0;
+            /* gradiente de fade na borda inferior — integra foto ao fundo */
+            -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+        }
+
+        /* Bloco PRETO (CTA) */
+        .hero-black-block {
+            background: #0a0a0a;
+            padding: 16px 20px 10px;
+        }
+        .hero-desc {
+            font-size: 14px;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+        .hero-desc strong {
+            color: var(--hot-pink);
+            font-weight: 700;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(255,0,127,0.6); }
+            50% { box-shadow: 0 0 50px rgba(255,0,127,0.9); }
+        }
+
+        /* ==========================================
+           GALERIA - CARROSSEL DINÂMICO
+        ========================================== */
+        .gallery-container {
+            padding: 10px 0 10px;
+            background: #0a0a0a;
+            position: relative;
+            overflow: hidden;
+        }
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px 18px;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .gallery-header .count {
+            background: var(--hot-pink);
+            color: white;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* Carrossel track */
+        .carousel-wrap {
+            position: relative;
+            overflow: hidden;
+            padding: 0 0 10px;
+        }
+        .carousel-track {
+            display: flex;
+            gap: 14px;
+            padding: 10px 20px 10px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            cursor: grab;
+        }
+        .carousel-track::-webkit-scrollbar { display: none; }
+        .carousel-track.grabbing { cursor: grabbing; }
+
+        /* Fade edges */
+        .carousel-wrap::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 60px;
+            height: 100%;
+            background: linear-gradient(to left, #0a0a0a, transparent);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* Card do carrossel */
+        .c-card {
+            flex: 0 0 220px;
+            height: 300px;
+            border-radius: 18px;
+            position: relative;
+            overflow: hidden;
+            scroll-snap-align: center;
+            background: #1a1a1a;
+            cursor: pointer;
+            transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+        }
+        .c-card:active { transform: scale(0.96); }
+        .c-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+            -webkit-user-drag: none;
+            display: block;
+        }
+        /* Blur states */
+        .c-card.is-blur img { filter: blur(14px); transform: scale(1.05); }
+        .c-card.is-super-blur img { filter: blur(22px); transform: scale(1.08); }
+
+        /* Overlay escuro no blur */
+        .c-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: rgba(0,0,0,0.45);
+        }
+        .c-card.is-super-blur .c-overlay { background: rgba(0,0,0,0.6); }
+
+        /* Badge VIP / PREMIUM */
+        .c-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 4;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .c-badge-vip { background: var(--hot-pink); color: #fff; box-shadow: 0 0 10px rgba(255,0,127,0.5); }
+        .c-badge-premium { background: var(--gold); color: #000; box-shadow: 0 0 10px rgba(245,200,66,0.5); }
+
+        /* Lock central */
+        .c-lock {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .c-lock-icon {
+            font-size: 36px;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.8));
+            animation: pulseLock 2.2s ease-in-out infinite;
+        }
+        .c-lock-label {
+            font-size: 11px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            color: rgba(255,255,255,0.9);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(0,0,0,0.5);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        /* Gradient bottom no card livre */
+        .c-grad {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 60px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            z-index: 2;
+        }
+        /* Watermark */
+        .c-wm {
+            position: absolute;
+            bottom: 8px; right: 10px;
+            font-size: 9px;
+            color: rgba(255,255,255,0.4);
+            z-index: 5;
+            pointer-events: none;
+            font-style: italic;
+        }
+
+        /* Card "Ver Tudo" */
+        .c-card-all {
+            flex: 0 0 160px;
+            height: 300px;
+            border-radius: 18px;
+            background: linear-gradient(140deg, #9B00FF 0%, var(--hot-pink) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-align: center;
+            padding: 20px 14px;
+            scroll-snap-align: center;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(255,0,127,0.35);
+            flex-shrink: 0;
+            transition: transform 0.25s;
+        }
+        .c-card-all:active { transform: scale(0.96); }
+        .c-card-all .c-all-icon { font-size: 36px; }
+        .c-card-all h3 { font-size: 14px; font-weight: 800; font-family:'Montserrat',sans-serif; line-height: 1.2; }
+        .c-card-all p { font-size: 11px; opacity: 0.8; }
+
+        /* Dots indicadores */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            padding: 14px 0 20px;
+        }
+        .c-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        .c-dot.active {
+            background: var(--hot-pink);
+            width: 20px;
+            border-radius: 3px;
+        }
+
+        /* Estados antigos (mantidos para compatibilidade com modal observer) */
+        .photo-item { display: none; }
+        .photo-free img { filter: none; }
+        .photo-blur img { filter: blur(12px); }
+        .photo-super-blur img { filter: blur(20px); }
+        .lock-icon { display: none; }
+
+        /* MODAL DE DESBLOQUEIO */
+        #unlock-modal {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100vw;
+            height: 90vh;
+            background: var(--bg-color);
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            z-index: 99990;
+            transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+        }
+        #unlock-modal.active { bottom: 0; }
+        .modal-bg { position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; filter: blur(15px); opacity: 0.3; z-index: -1; pointer-events: none;}
+        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 24px; color: white; cursor: pointer; z-index: 10; width: 30px; height: 30px; display:flex; align-items:center; justify-content:center; }
+        .modal-content { padding: 40px 20px; display: flex; flex-direction: column; align-items: center; height: 100%; overflow-y: auto;}
+        .modal-lock-huge { font-size: 60px; margin-bottom: 15px; animation: shake 3s infinite; }
+        .modal-title { font-size: 22px; font-weight: 700; text-align: center; margin-bottom: 5px; }
+        .modal-sub { font-size: 14px; color: var(--text-muted); text-align: center; margin-bottom: 25px; }
+        
+        .unlock-list { width: 100%; max-width: 320px; margin-bottom: 30px; }
+        .unlock-list-item { display: flex; align-items: center; margin-bottom: 12px; font-size: 14px; }
+        .unlock-list-item span.icon { width: 30px; color: var(--neon-pink); font-size: 18px; }
+        
+        .modal-btns { width: 100%; display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
+        .btn-vip { background: var(--neon-pink); color: white; padding: 15px; border-radius: 12px; font-weight: 700; text-transform: uppercase; font-size: 15px; width: 100%; box-shadow: 0 5px 15px rgba(255,0,85,0.4); display:flex; justify-content:center; align-items:center; gap: 10px;}
+        .btn-premium { background: var(--gold); color: black; padding: 15px; border-radius: 12px; font-weight: 700; text-transform: uppercase; font-size: 15px; width: 100%; box-shadow: 0 5px 15px rgba(255,215,0,0.3); display:flex; justify-content:center; align-items:center; gap: 10px;}
+        
+        .modal-footer { margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 12px; color: var(--text-muted); }
+
+        /* OVERLAY ESCURO DO MODAL (background click) */
+        #modal-backdrop {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.7);
+            z-index: 99989;
+            display: none;
+        }
+
+        /* PROVA SOCIAL / DEPOIMENTOS */
+        .testimonials { padding: 40px 20px; background: linear-gradient(0deg, #050505 0%, var(--bg-color) 100%); }
+        .testimonial-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .testimonial-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .testimonial-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--neon-pink); }
+        .testimonial-info h4 { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+        .stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; }
+        .testimonial-text { font-size: 13px; color: var(--text-muted); line-height: 1.5; font-style: italic; }
+        .testimonial-text::before { content: '"'; font-size: 20px; color: var(--neon-pink); font-family: serif; line-height: 0; }
+        .testimonial-text::after { content: '"'; font-size: 20px; color: var(--neon-pink); font-family: serif; line-height: 0; }
+        .verified-badge { position: absolute; top: 15px; right: 15px; background: rgba(0,255,85,0.1); color: #00ff55; padding: 3px 8px; border-radius: 10px; font-size: 10px; font-weight: bold; border: 1px solid rgba(0,255,85,0.3); display: flex; align-items: center; gap: 4px; }
+
+        /* PLANOS DE ASSINATURA */
+        .pricing-section { padding: 50px 20px; background: #050505; }
+        .section-title { text-align: center; font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+        .section-sub { text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 40px; }
+        
+        .plan-card { margin-bottom: 25px; padding: 25px; position: relative; overflow: hidden; }
+        .plan-card.premium { border: 1px solid var(--gold); }
+        .plan-badge { position: absolute; top: 0; right: 0; background: var(--neon-pink); padding: 5px 15px; font-size: 12px; font-weight: 700; border-bottom-left-radius: 16px; }
+        .plan-card.premium .plan-badge { background: var(--gold); color: black; }
+        
+        .plan-name { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+        .plan-price { font-size: 32px; font-weight: 700; margin-bottom: 20px; }
+        .plan-price span { font-size: 16px; color: var(--text-muted); font-weight: 400; }
+        
+        .plan-features { list-style: none; margin-bottom: 25px; }
+        .plan-features li { margin-bottom: 10px; font-size: 14px; display: flex; align-items: center; gap: 10px;}
+        .plan-features li::before { content: '✓'; color: var(--neon-pink); font-weight: bold; }
+        .plan-card.premium .plan-features li::before { color: var(--gold); }
+
+        /* FLOATING BTN */
+        .floating-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            z-index: 99980;
+            display: none; /* Shown via JS after scroll */
+            animation: pulseBtn 2s infinite;
+        }
+
+        /* ANIMATIONS */
+        @keyframes pulseLock {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        @keyframes pulseBtn {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 85, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 0, 85, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 85, 0); }
+        }
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        /* FAQ */
+        .faq-section { padding: 50px 20px; }
+        .faq-item { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; margin-bottom: 15px; padding: 15px; cursor: pointer; }
+        .faq-q { font-weight: 600; font-size: 15px; display: flex; justify-content: space-between; }
+        .faq-a { font-size: 14px; color: var(--text-muted); margin-top: 10px; display: none; }
+
+        /* FOOTER */
+        footer { text-align: center; padding: 30px 20px; border-top: 1px solid var(--glass-border); font-size: 12px; color: var(--text-muted); margin-bottom: 80px;}
+
+        /* ==========================================
+           PHONE SHOWCASE SECTION — REDESIGNED
+        ========================================== */
+        .phone-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px 20px;
+            background: radial-gradient(ellipse at 50% 60%, #12002a 0%, #0a0a0a 65%);
+            position: relative;
+            overflow: hidden;
+        }
+        /* Ambient glow blob behind phone */
+        .phone-section::before {
+            content: '';
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(155,0,255,0.18) 0%, rgba(255,0,85,0.08) 50%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            animation: ambientPulse 4s ease-in-out infinite;
+        }
+        @keyframes ambientPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+            50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+        }
+        .phone-section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: rgba(255,255,255,0.25);
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- ON Badge (above phone) --- */
+        .phone-on-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(-16px);
+            transition: opacity 0.5s ease 0.7s, transform 0.5s ease 0.7s;
+        }
+        .phone-on-badge.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .on-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #00e676;
+            box-shadow: 0 0 0 3px rgba(0,230,118,0.25);
+            animation: dotPulse 1.6s ease-in-out infinite;
+        }
+        @keyframes dotPulse {
+            0%, 100% { box-shadow: 0 0 0 3px rgba(0,230,118,0.25); }
+            50% { box-shadow: 0 0 0 8px rgba(0,230,118,0); }
+        }
+        .on-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0,200,83,0.12);
+            border: 1px solid rgba(0,230,118,0.35);
+            border-radius: 30px;
+            padding: 6px 16px 6px 10px;
+        }
+        .on-pill-toggle {
+            width: 44px;
+            height: 24px;
+            background: #00c853;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 0 12px rgba(0,200,83,0.7);
+            animation: onGlow 2s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+        .on-pill-toggle::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            top: 3px;
+            right: 3px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+        }
+        .on-pill-text {
+            position: absolute;
+            left: 7px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 7px;
+            font-weight: 900;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 0.5px;
+        }
+        .on-pill-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #00e676;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        @keyframes onGlow {
+            0%, 100% { box-shadow: 0 0 12px rgba(0,200,83,0.7); }
+            50% { box-shadow: 0 0 24px rgba(0,230,118,1), 0 0 40px rgba(0,200,83,0.4); }
+        }
+
+        /* --- Phone Showcase wrapper --- */
+        .phone-showcase {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(100px) scale(0.88);
+            transition:
+                opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .phone-showcase.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* --- Realistic Phone Frame --- */
+        .phone-outer {
+            position: relative;
+            /* Outer metal ring */
+            border-radius: 52px;
+            padding: 3px;
+            background: linear-gradient(145deg,
+                #5a5a5a 0%,
+                #2a2a2a 20%,
+                #111 50%,
+                #2a2a2a 80%,
+                #4a4a4a 100%);
+            box-shadow:
+                0 50px 120px rgba(0,0,0,0.95),
+                0 20px 60px rgba(0,0,0,0.8),
+                0 0 0 1px rgba(255,255,255,0.06),
+                0 0 60px rgba(155,0,255,0.18),
+                0 0 120px rgba(255,0,85,0.08),
+                inset 0 1px 0 rgba(255,255,255,0.12),
+                inset 0 -1px 0 rgba(0,0,0,0.6);
+            animation: phoneFloat 5s ease-in-out infinite;
+        }
+        @keyframes phoneFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        /* Phone body (inner frame) */
+        .phone-frame {
+            position: relative;
+            width: 248px;
+            height: 500px;
+            background: linear-gradient(160deg,
+                #1c1c1e 0%,
+                #0d0d0f 40%,
+                #111113 100%);
+            border-radius: 50px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Glass specular highlight (top-left sheen) */
+        .phone-frame::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 55%;
+            height: 40%;
+            background: linear-gradient(135deg,
+                rgba(255,255,255,0.07) 0%,
+                transparent 60%);
+            border-radius: 50px 0 50px 0;
+            z-index: 20;
+            pointer-events: none;
+        }
+        /* Phone screen */
+        .phone-screen {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #000;
+            border-radius: 50px;
+            overflow: hidden;
+        }
+        .phone-screen video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        /* Dynamic island (notch) */
+        .phone-island {
+            position: absolute;
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110px;
+            height: 28px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 15;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            gap: 5px;
+        }
+        .phone-island-cam {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #1a3a5c, #070d14);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .phone-island-cam::after {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(100,160,255,0.5);
+            margin: 2px auto;
+        }
+        /* Lock screen overlay */
+        .phone-lock-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+            cursor: pointer;
+        }
+        .phone-lock-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .phone-lock-overlay:hover {
+            background: rgba(0,0,0,0.7);
+        }
+        .phone-lock-overlay .lock-emoji {
+            font-size: 48px;
+            margin-bottom: 14px;
+            filter: drop-shadow(0 0 15px rgba(255,0,127,0.8));
+        }
+        .phone-lock-overlay h4 {
+            font-size: 18px;
+            font-weight: 800;
+            color: white;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .phone-lock-overlay p {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            line-height: 1.4;
+        }
+        .phone-lock-overlay .btn-unlock-small {
+            margin-top: 20px;
+            background: linear-gradient(90deg, #FF007F, #b30059);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 13px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(255,0,127,0.4);
+            animation: phoneBtnPulse 2s infinite;
+        }
+        @keyframes phoneBtnPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 15px rgba(255,0,127,0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 4px 25px rgba(255,0,127,0.7); }
+        }
+        /* Physical buttons */
+        .phone-btn-power {
+            position: absolute;
+            right: -4px;
+            top: 140px;
+            width: 4px;
+            height: 64px;
+            background: linear-gradient(90deg, #2a2a2a, #3d3d3d, #2a2a2a);
+            border-radius: 0 3px 3px 0;
+        }
+        .phone-btn-vol1 {
+            position: absolute;
+            left: -4px;
+            top: 110px;
+            width: 4px;
+            height: 36px;
+            background: linear-gradient(270deg, #2a2a2a, #3d3d3d, #2a2a2a);
+            border-radius: 3px 0 0 3px;
+        }
+        .phone-btn-vol2 {
+            position: absolute;
+            left: -4px;
+            top: 156px;
+            width: 4px;
+            height: 64px;
+            background: linear-gradient(270deg, #2a2a2a, #3d3d3d, #2a2a2a);
+            border-radius: 3px 0 0 3px;
+        }
+        /* Bottom home bar */
+        .phone-home-bar {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 5px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+            z-index: 15;
+        }
+        /* Floor reflection */
+        .phone-reflection {
+            width: 200px;
+            height: 30px;
+            background: radial-gradient(ellipse, rgba(155,0,255,0.25) 0%, transparent 70%);
+            margin-top: 10px;
+            border-radius: 50%;
+            filter: blur(6px);
+        }
+
+        /* ==========================================
+           TELEGRAM FLOATING BADGE
+        ========================================== */
+        .tg-float {
+            position: absolute;
+            top: 80px;
+            right: -30px;
+            z-index: 10;
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            animation: tgFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 8px 24px rgba(0, 136, 204, 0.5));
+            transition: transform 0.2s, filter 0.2s;
+        }
+        .tg-float:hover {
+            filter: drop-shadow(0 12px 32px rgba(0, 136, 204, 0.8));
+            transform: scale(1.1) translateY(-4px);
+        }
+        .tg-float:active { transform: scale(0.95); }
+        @keyframes tgFloat {
+            0%, 100% { transform: translateY(0px) rotate(-3deg); }
+            50%       { transform: translateY(-10px) rotate(3deg); }
+        }
+
+        /* ==========================================
+           PRIZE POPUP
+        ========================================== */
+        #prize-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 199998;
+            display: none;
+            backdrop-filter: blur(6px);
+        }
+        #prize-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            z-index: 199999;
+            width: 88vw;
+            max-width: 360px;
+            background: linear-gradient(160deg, #110008 0%, #0a0a0a 100%);
+            border: 1px solid rgba(255,0,127,0.3);
+            border-radius: 24px;
+            padding: 30px 24px 24px;
+            text-align: center;
+            display: none;
+            box-shadow:
+                0 0 0 1px rgba(255,0,127,0.1),
+                0 30px 80px rgba(0,0,0,0.9),
+                0 0 60px rgba(255,0,127,0.15);
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+        }
+        #prize-popup.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        .prize-confetti {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            animation: dropIn 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.1s both;
+        }
+        @keyframes dropIn {
+            from { transform: translateX(-50%) translateY(-30px) scale(0); }
+            to { transform: translateX(-50%) translateY(0) scale(1); }
+        }
+        .prize-ribbon {
+            display: inline-block;
+            background: var(--hot-pink);
+            color: #fff;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            box-shadow: 0 0 15px rgba(255,0,127,0.5);
+        }
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+        .prize-crown { font-size: 48px; margin: 0 0 8px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5)); }
+        .prize-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 8px;
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+        .prize-title span {
+            color: var(--gold);
+        }
+        .prize-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+        .prize-offer-box {
+            background: rgba(255,0,127,0.06);
+            border: 1px solid rgba(255,0,127,0.25);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+        .prize-offer-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .prize-offer-price {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 6px;
+        }
+        .prize-old-price {
+            font-size: 15px;
+            color: rgba(255,255,255,0.35);
+            text-decoration: line-through;
+        }
+        .prize-new-price {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .prize-new-period {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+        }
+        .prize-countdown {
+            font-size: 13px;
+            color: var(--hot-pink);
+            margin-top: 8px;
+            font-weight: 700;
+        }
+        .btn-prize-cta {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: #000;
+            font-weight: 900;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            border-radius: 14px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 6px 20px rgba(245,200,66,0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: pulseGold 2s infinite;
+            margin-bottom: 12px;
+        }
+        .btn-prize-cta:active { transform: scale(0.97); }
+        @keyframes pulseGold {
+            0%, 100% { box-shadow: 0 6px 25px rgba(255,165,0,0.5); }
+            50% { box-shadow: 0 6px 40px rgba(255,165,0,0.8); }
+        }
+        .prize-skip {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+            cursor: pointer;
+            padding: 5px;
+        }
+        .prize-skip:active { color: rgba(255,255,255,0.6); }
+        /* Floating confetti particles */
+        .confetti-particle {
+            position: fixed;
+            top: -10px;
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            opacity: 0;
+            z-index: 200000;
+            pointer-events: none;
+            animation: confettiFall linear forwards;
+        }
+        @keyframes confettiFall {
+            0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+
+    <!-- Anti-Cheat Overlay -->
+    <div id="anti-cheat-overlay">
+        ⚠️ Acesso não autorizado detectado. Feche as ferramentas de desenvolvedor.
+    </div>
+
+    <!-- SOCIAL HEADER -->
+    <header class="social-header">
+        <a href="#" id="tg-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            Telegram
+        </a>
+        <span class="social-divider">|</span>
+        <a href="#" id="ig-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+            cibely.vt
+        </a>
+    </header>
+
+    <!-- GATE +18 -->
+    <div id="gate-18">
+        <h1>Aviso +18</h1>
+        <p>Este site contém conteúdo adulto explícito. Você precisa ter 18 anos ou mais para acessar.</p>
+        <div class="gate-btn-group">
+            <button class="btn-primary" onclick="acceptGate()">TENHO MAIS DE 18 ANOS</button>
+            <button class="btn-secondary" onclick="rejectGate()">Sair do site</button>
+        </div>
+    </div>
+
+    <!-- HERO FULL SCREEN -->
+    <section class="hero">
+        <!-- Sales Notification -->
+        <div class="sales-notification" id="sales-notification">
+            <div class="sales-icon">🔥</div>
+            <div class="sales-text" id="sales-text">
+                <strong>João P.</strong> acabou de assinar o <strong>Acesso VIP</strong>
+                <span class="sales-time">agora mesmo</span>
+            </div>
+        </div>
+
+        <!-- Foto principal fundo inteiro -->
+        <img src="bely-hero.jpg" alt="Quartinho da Bely" class="hero-bg-photo">
+
+        <!-- Conteúdo flutuando sobre a foto -->
+        <div class="hero-content">
+            <p class="hero-eyebrow">✨ Conteúdo exclusivo</p>
+            <h1 class="hero-title">QUARTINHO<br>DA BELY</h1>
+            
+            <!-- Info badges -->
+            <div class="hero-badges">
+                <div class="hero-badge">
+                    <span class="hero-badge-icon">🔥</span>
+                    <span class="hero-badge-label">NOVO</span>
+                    <span class="hero-badge-val">conteúdo</span>
+                </div>
+                <div class="hero-badge">
+                    <span class="hero-badge-icon">🔒</span>
+                    <span class="hero-badge-label">+1.200</span>
+                    <span class="hero-badge-val">assinantes</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bloco preto (descrição + CTA) -->
+    <div class="hero-black-block">
+        <p class="hero-desc">
+            Aqui é o meu cantinho especial ✨<br>
+            <strong>Desbloqueie e veja o que eu nunca posto</strong><br>
+            nas redes sociais
+        </p>
+        <div class="btn-gold-wrap">
+            <button class="btn-gold" onclick="document.getElementById('planos').scrollIntoView({behavior:'smooth'})">
+                <span class="btn-icon">🔓</span>
+                <div class="btn-text-wrap">
+                    <div class="btn-text-main"><strong>Liberar acesso AGORA!</strong></div>
+                    <div class="btn-text-sub">Acesso imediato após assinar</div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <!-- PHONE SHOWCASE SECTION -->
+    <section class="phone-section" id="phone-section">
+        <p class="phone-section-title">Prévia exclusiva</p>
+
+        <!-- ON Badge ABOVE the phone -->
+        <div class="phone-on-badge" id="phone-on-badge">
+            <div class="on-dot"></div>
+            <div class="on-pill">
+                <div class="on-pill-toggle">
+                    <span class="on-pill-text">ON</span>
+                </div>
+                <span class="on-pill-label">ao vivo</span>
+            </div>
+        </div>
+
+        <!-- Phone showcase wrapper -->
+        <div class="phone-showcase" id="phone-showcase">
+
+            <!-- Telegram flutuante -->
+            <a href="#" id="tg-link-phone">
+                <img src="telegram.png" class="tg-float" alt="Telegram" draggable="false">
+            </a>
+            <!-- Outer metal ring -->
+            <div class="phone-outer">
+                <!-- Phone body -->
+                <div class="phone-frame">
+                    <!-- Dynamic island -->
+                    <div class="phone-island">
+                        <div class="phone-island-cam"></div>
+                    </div>
+                    <!-- Physical side buttons -->
+                    <div class="phone-btn-power"></div>
+                    <div class="phone-btn-vol1"></div>
+                    <div class="phone-btn-vol2"></div>
+                    <!-- Screen -->
+                    <div class="phone-screen">
+                        <!--
+                            Para adicionar seu vídeo, substitua o src abaixo:
+                            <video id="phone-video" autoplay muted loop playsinline src="seu-video.mp4"></video>
+                        -->
+                        <video id="phone-video" autoplay muted loop playsinline src="" style="display:none"></video>
+                        <!-- Lock overlay -->
+                        <div class="phone-lock-overlay" id="phone-lock" onclick="document.getElementById('planos').scrollIntoView({behavior: 'smooth'})">
+                            <div class="lock-emoji">🔒</div>
+                            <h4>Conteúdo VIP</h4>
+                            <p>Toque para desbloquear<br>o vídeo completo</p>
+                            <div class="btn-unlock-small">ASSINAR AGORA</div>
+                        </div>
+                    </div>
+                    <!-- Home indicator bar -->
+                    <div class="phone-home-bar"></div>
+                </div>
+            </div>
+            <!-- Floor glow reflection -->
+            <div class="phone-reflection"></div>
+        </div>
+    </section>
+
+    <!-- PRIZE BACKDROP -->
+    <div id="prize-backdrop" onclick="closePrize()"></div>
+
+    <!-- PRIZE POPUP REDESENHADO -->
+    <div id="prize-popup">
+        <!-- Fechar -->
+        <div style="position:absolute; top:14px; right:18px; font-size:20px; color:#555; cursor:pointer;" onclick="closePrize()">✕</div>
+
+        <div class="prize-confetti">🎉</div>
+        <span class="prize-ribbon">✨ OFERTA EXCLUSIVA PARA VOCÊ ✨</span>
+
+        <h2 class="prize-title" style="margin-top:10px;">
+            Você desbloqueou<br><span>50% de desconto!</span>
+        </h2>
+        <p class="prize-desc">Só quem chega até aqui recebe esse preço especial. Garanta agora antes que acabe!</p>
+
+        <!-- Planos dentro do popup -->
+        <div style="width:100%; margin-bottom:14px;">
+
+            <!-- Opção MENSAL (destaque) -->
+            <div style="background:rgba(255,0,127,0.08); border:2px solid var(--hot-pink); border-radius:14px; padding:14px 16px; margin-bottom:10px; position:relative;">
+                <div style="position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:var(--hot-pink); color:#fff; font-size:10px; font-weight:800; padding:3px 14px; border-radius:20px; white-space:nowrap; font-family:'Montserrat',sans-serif; letter-spacing:1px;">🔥 MAIS POPULAR</div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <div style="font-weight:800; font-size:14px;">Mensal VIP</div>
+                        <div style="font-size:11px; color:#aaa;">Renova todo mês</div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-size:12px; color:#666; text-decoration:line-through;">R$39,99</div>
+                        <div style="font-size:28px; font-weight:900; color:var(--hot-pink); line-height:1;">R$19,99</div>
+                        <div style="font-size:10px; color:#aaa;">/mês</div>
+                    </div>
+                </div>
+                <button class="btn-vip" style="margin-top:12px; width:100%; border-radius:10px; font-size:14px; padding:12px;" onclick="checkout('mensal'); closePrize();">
+                    🔓 ASSINAR AGORA — R$19,99/mês
+                </button>
+            </div>
+
+            <!-- Semanal + Vitalício lado a lado -->
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                <!-- Semanal -->
+                <div style="background:#111; border:1px solid #333; border-radius:12px; padding:12px; text-align:center; cursor:pointer;" onclick="checkout('semanal'); closePrize();">
+                    <div style="font-size:11px; color:#aaa; margin-bottom:4px;">🗓️ Semanal</div>
+                    <div style="font-size:22px; font-weight:900; color:#fff;">R$7,99</div>
+                    <div style="font-size:9px; color:#666; margin-bottom:8px;">/semana</div>
+                    <div style="background:#222; border-radius:6px; padding:6px; font-size:11px; font-weight:700;">ASSINAR</div>
+                </div>
+                <!-- Vitalício -->
+                <div style="background:linear-gradient(135deg,#1a0a00,#2a1500); border:1px solid var(--gold); border-radius:12px; padding:12px; text-align:center; cursor:pointer;" onclick="checkout('vitalicio'); closePrize();">
+                    <div style="font-size:11px; color:var(--gold); margin-bottom:4px;">👑 Vitalício</div>
+                    <div style="font-size:22px; font-weight:900; color:var(--gold);">R$50,00</div>
+                    <div style="font-size:9px; color:#888; margin-bottom:8px;">pagamento único</div>
+                    <div style="background:var(--gold); color:#000; border-radius:6px; padding:6px; font-size:11px; font-weight:800;">GARANTIR</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="prize-countdown" id="prize-timer">⏳ Oferta expira em: 09:59</div>
+        <div class="prize-skip" onclick="closePrize()">Não quero economizar</div>
+    </div>
+
+    <!-- GALERIA -->
+    <section class="gallery-container" id="gallery">
+        <div class="gallery-header">
+            <span>Fotos &amp; Vídeos</span>
+            <span class="count">+20 Mídias</span>
+        </div>
+        <div class="grid" id="photo-grid">
+            <!-- Fotos injetadas via JS para segurança -->
+        </div>
+    </section>
+
+    <!-- PROVA SOCIAL / DEPOIMENTOS -->
+    <section class="testimonials" id="depoimentos">
+        <h2 class="section-title" style="font-size: 24px; margin-bottom:30px;">O que estão dizendo 🔥</h2>
+        <div id="testimonials-container">
+            <!-- Depoimentos injetados via JS -->
+            <div style="text-align:center; padding: 20px; color:#aaa; font-size:14px;">Carregando depoimentos...</div>
+        </div>
+    </section>
+
+    <!-- PLANOS -->
+    <section class="pricing-section" id="planos">
+        <h2 class="section-title">Escolha seu Plano</h2>
+        <p class="section-sub">Desbloqueie todo o conteúdo instantaneamente</p>
+
+        <!-- Card SEMANAL -->
+        <div class="plan-card glass">
+            <div class="plan-badge" style="background:#555;">EXPERIMENTE</div>
+            <div class="plan-name">🗓️ Semanal</div>
+            <div class="plan-price">R$7,99<span>/semana</span></div>
+            <ul class="plan-features">
+                <li>Acesso a todas as fotos VIP por 7 dias</li>
+                <li>Cancele quando quiser</li>
+                <li>Ideal pra conhecer o conteúdo</li>
+            </ul>
+            <button class="btn-vip" style="background:#555;" onclick="checkout('semanal')">ASSINAR SEMANAL</button>
+        </div>
+
+        <!-- Card MENSAL (destaque) -->
+        <div class="plan-card glass" style="border-color: var(--hot-pink);">
+            <div class="plan-badge">🔥 MAIS VENDIDO</div>
+            <div class="plan-name">Mensal VIP</div>
+            <div class="plan-price">R$19,99<span>/mês</span></div>
+            <ul class="plan-features">
+                <li>Acesso a todas as fotos VIP</li>
+                <li>Atualizações semanais de conteúdo</li>
+                <li>Chat liberado comigo 💕</li>
+                <li>Cancele quando quiser</li>
+            </ul>
+            <button class="btn-vip" onclick="checkout('mensal')">ASSINAR AGORA 🔓</button>
+        </div>
+
+        <!-- Card VITALICIO -->
+        <div class="plan-card glass premium">
+            <div class="plan-badge">MELHOR CUSTO</div>
+            <div class="plan-name">👑 Vitalício</div>
+            <div class="plan-price">R$50,00<span>/único</span></div>
+            <ul class="plan-features">
+                <li>Acesso a TODO conteúdo VIP para sempre</li>
+                <li>Vídeos e Reels exclusivos</li>
+                <li>Prioridade de resposta no chat</li>
+                <li>Acesso vitalício sem mensalidade</li>
+                <li>Todos os novos conteúdos incluídos</li>
+            </ul>
+            <button class="btn-premium" onclick="checkout('vitalicio')">GARANTIR ACESSO TOTAL 👑</button>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <h2 class="section-title" style="font-size: 24px; margin-bottom:20px;">Dúvidas Frequentes</h2>
+        
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">O acesso é imediato? <span>+</span></div>
+            <div class="faq-a">Sim! Assim que o pagamento via PIX ou Cartão é aprovado, você recebe o acesso na mesma hora.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">Como recebo o conteúdo? <span>+</span></div>
+            <div class="faq-a">Você receberá um email com seu login e senha para acessar a área de membros exclusiva.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">É seguro? Aparece na fatura? <span>+</span></div>
+            <div class="faq-a">O pagamento é 100% seguro (criptografado) e a cobrança é discreta na fatura (nome genérico de processador de pagamentos).</div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Conteúdo estritamente +18.</p>
+        <p>Pagamento Seguro processado por plataformas verificadas.</p>
+        <br>
+        <p>© 2026 Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- MODAL BACKDROP -->
+    <div id="modal-backdrop" onclick="closeModal()"></div>
+
+    <!-- UNLOCK MODAL -->
+    <div id="unlock-modal">
+        <img src="" class="modal-bg" id="modal-bg-img">
+        <div class="modal-close" onclick="closeModal()">✕</div>
+        <div class="modal-content">
+            <div class="modal-lock-huge">🔒</div>
+            <h3 class="modal-title">Conteúdo Bloqueado</h3>
+            <p class="modal-sub">Assine agora para visualizar esta e outras mídias exclusivas.</p>
+            
+            <div class="unlock-list">
+                <div class="unlock-list-item"><span class="icon">📸</span> Centenas de fotos exclusivas</div>
+                <div class="unlock-list-item"><span class="icon">🎥</span> Vídeos caseiros diários</div>
+                <div class="unlock-list-item"><span class="icon">💬</span> Acesso ao chat privado</div>
+            </div>
+
+            <div class="modal-btns">
+                <button class="btn-vip" onclick="checkout('vip')">VER COM PLANO VIP (R$39)</button>
+                <button class="btn-premium" onclick="checkout('premium')">ACESSO TOTAL (R$97) 👑</button>
+            </div>
+            
+            <div class="modal-footer">
+                <div>🔒 Pagamento 100% Seguro</div>
+                <div>⚡ Acesso Liberado na Hora</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FLOATING CTA -->
+    <button class="floating-btn btn-vip" id="float-cta" onclick="document.getElementById('planos').scrollIntoView({behavior: 'smooth'})">
+        🔓 DESBLOQUEAR TUDO AGORA
+    </button>
+
+    <!-- SUPABASE JS E CONFIG -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // ==========================================
+        // 1. CONFIGURAÇÕES E DADOS
+        // ==========================================
+
+        // LINKS SHARKBOT OFUSCADOS (XOR Simples + Base64)
+        // Como gerar no seu console antes de publicar: btoa(String.fromCharCode(...[..."sua_url"].map(c => c.charCodeAt(0) ^ 42)))
+        // Exemplo com chave 42. Substitua os placeholders abaixo pelas strings geradas.
+        const encryptedLinks = {
+            'vip': 'Ojo6Pjs6Pjo+Pjo6Pjs+', // Placeholder
+            'premium': 'Ojo6Pjs6Pjo+Pjo6Pjs+' // Placeholder
+        };
+        const xorKey = 42;
+
+        function decryptUrl(encodedUrl) {
+            try {
+                const decoded = atob(encodedUrl);
+                let result = '';
+                for(let i = 0; i < decoded.length; i++) {
+                    result += String.fromCharCode(decoded.charCodeAt(i) ^ xorKey);
+                }
+                return result || '#'; // fallback
+            } catch(e) {
+                return '#';
+            }
+        }
+
+        // ==========================================
+        // 2. GATE +18 E SESSÃO
+        // ==========================================
+        function checkGate() {
+            if (sessionStorage.getItem('ageVerified') === 'true') {
+                document.getElementById('gate-18').style.display = 'none';
+            } else {
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        function acceptGate() {
+            sessionStorage.setItem('ageVerified', 'true');
+            document.getElementById('gate-18').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            initSecurity(); // Inicia as defesas apenas após entrar
+        }
+        function rejectGate() {
+            window.location.href = "https://google.com";
+        }
+        checkGate();
+
+        // ==========================================
+        // 3. RENDERIZAÇÃO DA GALERIA — CARROSSEL (Dinâmico via Supabase)
+        // ==========================================
+        async function renderGallery() {
+            // Inject carousel structure into gallery section if not present
+            const gallerySection = document.getElementById('gallery');
+            if (!gallerySection.querySelector('.carousel-track')) {
+                const header = gallerySection.querySelector('.gallery-header');
+                gallerySection.innerHTML = '';
+                gallerySection.appendChild(header || (() => {
+                    const h = document.createElement('div');
+                    h.className = 'gallery-header';
+                    h.innerHTML = '<span>Fotos &amp; Vídeos</span><span class="count">...</span>';
+                    return h;
+                })());
+                gallerySection.innerHTML += `
+                    <div class="carousel-wrap">
+                        <div class="carousel-track" id="carousel-track"></div>
+                    </div>
+                    <div class="carousel-dots" id="carousel-dots"></div>
+                    <div class="grid" id="photo-grid" style="display:none"></div>
+                `;
+            }
+
+            const track = document.getElementById('carousel-track');
+            const dotsContainer = document.getElementById('carousel-dots');
+            if (!track) return;
+            track.innerHTML = '';
+            if (dotsContainer) dotsContainer.innerHTML = '';
+
+            let structure = [];
+
+            try {
+                // Tenta puxar do Supabase (A tabela 'media' precisa existir)
+                const { data, error } = await supabaseClient
+                    .from('media')
+                    .select('*')
+                    .order('sort_order', { ascending: true })
+                    .order('created_at', { ascending: true });
+
+                if (error) throw error;
+                
+                if (data && data.length > 0) {
+                    data.forEach(item => {
+                        if (item.tipo === 'phone-video') {
+                            // Seta o vídeo na tela do celular
+                            const phoneVideo = document.getElementById('phone-video');
+                            const phoneLock = document.getElementById('phone-lock');
+                            if (phoneVideo) {
+                                phoneVideo.src = item.url;
+                                phoneVideo.style.display = 'block';
+                                
+                                // Oculta o lock no começo
+                                if(phoneLock) {
+                                    phoneLock.classList.remove('active');
+                                    phoneLock.style.display = 'flex'; // Garante que não esteja none
+                                }
+                            }
+                        } else {
+                            // Adiciona no carrossel
+                            let type = 'free';
+                            if(item.tipo === 'vip') type = 'blur-vip';
+                            if(item.tipo === 'premium') type = 'blur-premium';
+                            structure.push({ type: type, src: item.url });
+                        }
+                    });
+                }
+            } catch (err) {
+                console.warn('Erro ao conectar com Supabase (ou não configurado). Usando imagens de fallback.');
+            }
+
+            // Fallback caso banco esteja vazio ou sem configuração
+            if (structure.length === 0) {
+                structure = [
+                    { type: 'free',         src: 'https://via.placeholder.com/400/222/ff0055?text=LIVRE+1' },
+                    { type: 'blur-vip',     src: 'https://via.placeholder.com/400/111/fff?text=BLUR+VIP' },
+                    { type: 'blur-premium', src: 'https://via.placeholder.com/400/111/fff?text=BLUR+PREM' }
+                ];
+            }
+
+            // Contador fixo para parecer que tem muito conteúdo
+            const countEl = document.querySelector('.gallery-header .count');
+            if (countEl) countEl.innerText = '+20 Mídias';
+
+            structure.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'c-card';
+                card.id = 'img-container-' + index;
+
+                const isVideo = item.src.match(/\.(mp4|webm|ogg)$/i);
+                const mediaNode = isVideo 
+                    ? `<video src="${item.src}" autoplay muted loop playsinline oncontextmenu="return false;" draggable="false" style="width:100%;height:100%;object-fit:cover;"></video>`
+                    : `<img src="${item.src}" oncontextmenu="return false;" draggable="false" alt="">`;
+                const wm = `<div class="c-wm">@cibely.vt</div>`;
+
+                if (item.type === 'free') {
+                    card.innerHTML = `
+                        ${mediaNode}
+                        <div class="c-grad"></div>
+                        ${wm}
+                    `;
+                } else if (item.type === 'blur-vip') {
+                    card.classList.add('is-blur');
+                    card.innerHTML = `
+                        ${mediaNode}
+                        <div class="c-overlay"></div>
+                        <div class="c-badge c-badge-vip">VIP</div>
+                        <div class="c-lock">
+                            <div class="c-lock-icon">🔒</div>
+                            <div class="c-lock-label">Toque para ver</div>
+                        </div>
+                        ${wm}
+                    `;
+                    card.onclick = () => openModal(item.src);
+                } else if (item.type === 'blur-premium') {
+                    card.classList.add('is-super-blur');
+                    card.innerHTML = `
+                        ${mediaNode}
+                        <div class="c-overlay"></div>
+                        <div class="c-badge c-badge-premium">PREMIUM 👑</div>
+                        <div class="c-lock">
+                            <div class="c-lock-icon">👑</div>
+                            <div class="c-lock-label">Exclusivo</div>
+                        </div>
+                        ${wm}
+                    `;
+                    card.onclick = () => openModal(item.src);
+                }
+
+                track.appendChild(card);
+
+                // Dot
+                if (dotsContainer) {
+                    const dot = document.createElement('div');
+                    dot.className = 'c-dot' + (index === 0 ? ' active' : '');
+                    dot.dataset.idx = index;
+                    dot.onclick = () => {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    };
+                    dotsContainer.appendChild(dot);
+                }
+            });
+
+            // "Ver tudo" card at end
+            const allCard = document.createElement('div');
+            allCard.className = 'c-card-all';
+            allCard.innerHTML = `
+                <div class="c-all-icon">👁️</div>
+                <h3>Ver todas as fotos</h3>
+                <p>Escolha seu plano</p>
+            `;
+            allCard.onclick = () => document.getElementById('planos').scrollIntoView({ behavior: 'smooth' });
+            track.appendChild(allCard);
+
+            // --- Drag to scroll ---
+            let isDown = false, startX, scrollLeft;
+            track.addEventListener('mousedown', e => {
+                isDown = true;
+                track.classList.add('grabbing');
+                startX = e.pageX - track.offsetLeft;
+                scrollLeft = track.scrollLeft;
+            });
+            track.addEventListener('mouseleave', () => { isDown = false; track.classList.remove('grabbing'); });
+            track.addEventListener('mouseup', () => { isDown = false; track.classList.remove('grabbing'); });
+            track.addEventListener('mousemove', e => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - track.offsetLeft;
+                track.scrollLeft = scrollLeft - (x - startX) * 1.5;
+            });
+
+            // --- Update active dot on scroll ---
+            if (dotsContainer) {
+                track.addEventListener('scroll', () => {
+                    const cards = track.querySelectorAll('.c-card');
+                    const center = track.scrollLeft + track.clientWidth / 2;
+                    let closest = 0, minDist = Infinity;
+                    cards.forEach((c, i) => {
+                        const dist = Math.abs(c.offsetLeft + c.offsetWidth / 2 - center);
+                        if (dist < minDist) { minDist = dist; closest = i; }
+                    });
+                    dotsContainer.querySelectorAll('.c-dot').forEach((d, i) => {
+                        d.classList.toggle('active', i === closest);
+                    });
+                }, { passive: true });
+            }
+
+            // Also keep the hidden grid for security observer
+            const grid = document.getElementById('photo-grid');
+            if (grid) grid.innerHTML = '';
+        }
+        renderGallery();
+
+        function escapeHTML(str) {
+            if (!str) return '';
+            return str.toString().replace(/[&<>'"]/g, 
+                tag => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag] || tag)
+            );
+        }
+
+        async function loadTestimonials() {
+            const container = document.getElementById('testimonials-container');
+            if (!container) return;
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('testimonials')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) {
+                    container.innerHTML = '<div style="text-align:center; padding:20px; color:#ff3333; font-size:14px;">(Nenhum depoimento cadastrado no banco)</div>';
+                    return;
+                }
+
+                if (data && data.length > 0) {
+                    container.innerHTML = '';
+                    data.forEach(item => {
+                        const safeName = escapeHTML(item.nome);
+                        const safePlan = escapeHTML(item.plano);
+                        const safeText = escapeHTML(item.texto);
+                        const avatarHtml = item.avatar_url 
+                            ? `<img src="${escapeHTML(item.avatar_url)}" alt="User" class="testimonial-avatar">`
+                            : `<div class="testimonial-avatar" style="background:#333; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">${safeName.charAt(0)}</div>`;
+
+                        container.innerHTML += `
+                            <div class="testimonial-card">
+                                <div class="verified-badge">✓ ${safePlan}</div>
+                                <div class="testimonial-header">
+                                    ${avatarHtml}
+                                    <div class="testimonial-info">
+                                        <h4>${safeName}</h4>
+                                        <div class="stars">★★★★★</div>
+                                    </div>
+                                </div>
+                                <p class="testimonial-text">${safeText}</p>
+                            </div>
+                        `;
+                    });
+                } else {
+                    // Fallback
+                    container.innerHTML = `
+                        <div class="testimonial-card">
+                            <div class="verified-badge">✓ Assinante VIP</div>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar" style="background:#333; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">L</div>
+                                <div class="testimonial-info">
+                                    <h4>Lucas M.</h4>
+                                    <div class="stars">★★★★★</div>
+                                </div>
+                            </div>
+                            <p class="testimonial-text">Vale cada centavo! O conteúdo do Premium é surreal de bom.</p>
+                        </div>
+                    `;
+                }
+            } catch(e) {
+                console.warn('Erro ao carregar depoimentos dinâmicos', e);
+            }
+        }
+        loadTestimonials();
+
+        // ==========================================
+        // 4. LÓGICA DE MODAIS E INTERAÇÃO
+        // ==========================================
+        function openModal(imgSrc) {
+            // Haptic Feedback se disponível
+            if (navigator.vibrate) navigator.vibrate([50,30,50]);
+            
+            document.getElementById('modal-bg-img').src = imgSrc;
+            document.getElementById('unlock-modal').classList.add('active');
+            document.getElementById('modal-backdrop').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('unlock-modal').classList.remove('active');
+            document.getElementById('modal-backdrop').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function toggleFaq(element) {
+            const answer = element.querySelector('.faq-a');
+            const icon = element.querySelector('.faq-q span');
+            if(answer.style.display === 'block') {
+                answer.style.display = 'none';
+                icon.innerText = '+';
+            } else {
+                answer.style.display = 'block';
+                icon.innerText = '-';
+            }
+        }
+
+        function checkout(planType) {
+            if (navigator.vibrate) navigator.vibrate([50]);
+            const url = decryptUrl(encryptedLinks[planType]);
+            if(url && url !== '#') {
+                window.location.href = url;
+            } else {
+                alert("Redirecionando para checkout " + planType.toUpperCase() + "...");
+                // Remover o alert no ambiente de produção e assegurar que as URLs estão configuradas
+            }
+        }
+
+        // Float Button Logic
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('float-cta');
+            if (window.scrollY > 500) {
+                btn.style.display = 'block';
+            } else {
+                btn.style.display = 'none';
+            }
+        });
+
+        // ==========================================
+        // 6. PHONE SLIDE-UP ANIMATION
+        // ==========================================
+        function initPhoneAnimation() {
+            const showcase = document.getElementById('phone-showcase');
+            const onBadge = document.getElementById('phone-on-badge');
+            if (!showcase) return;
+
+            function activatePhone() {
+                // Phone slides up with scale
+                setTimeout(() => {
+                    showcase.classList.add('visible');
+                }, 200);
+                // ON badge drops in slightly after
+                if (onBadge) {
+                    setTimeout(() => {
+                        onBadge.classList.add('visible');
+                    }, 500);
+                }
+                // If there's a video src, show it and handle the lock overlay
+                const vid = document.getElementById('phone-video');
+                const lock = document.getElementById('phone-lock');
+                if (vid && vid.src && vid.src !== window.location.href && vid.src !== '') {
+                    vid.style.display = 'block';
+                    
+                    // Inicia o timer de 6 segundos a partir de agora (que o video apareceu na tela)
+                    setTimeout(() => {
+                        if (lock) {
+                            lock.style.display = 'flex';
+                            lock.classList.add('active');
+                        }
+                    }, 6000);
+                }
+            }
+
+            // Use IntersectionObserver to trigger when phone section is in view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        activatePhone();
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            const section = document.getElementById('phone-section');
+            if (section) observer.observe(section);
+
+            // Also trigger on page load after short delay (if phone is already in view)
+            setTimeout(() => {
+                const rect = document.getElementById('phone-section')?.getBoundingClientRect();
+                if (rect && rect.top < window.innerHeight) {
+                    activatePhone();
+                }
+            }, 700);
+        }
+        initPhoneAnimation();
+
+        // ==========================================
+        // 7. PRIZE POPUP
+        // ==========================================
+        let prizeShown = false;
+        let prizeTimerInterval = null;
+
+        function showPrize() {
+            if (prizeShown) return;
+            if (window._prizePopupEnabled !== true) return; // Só mostra se ativado no painel
+
+            prizeShown = true;
+
+            const backdrop = document.getElementById('prize-backdrop');
+            const popup = document.getElementById('prize-popup');
+            if (!backdrop || !popup) return;
+
+            // Show backdrop and popup
+            backdrop.style.display = 'block';
+            popup.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+
+            // Trigger animation on next frame
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    popup.classList.add('show');
+                });
+            });
+
+            // Launch confetti
+            launchConfetti();
+
+            // Haptic feedback
+            if (navigator.vibrate) navigator.vibrate([30, 50, 30, 50, 80]);
+
+            // Start countdown timer
+            let seconds = 599; // 9:59
+            const timerEl = document.getElementById('prize-timer');
+            prizeTimerInterval = setInterval(() => {
+                seconds--;
+                if (seconds <= 0) {
+                    clearInterval(prizeTimerInterval);
+                    if (timerEl) timerEl.textContent = '⚠️ Oferta expirada!';
+                    return;
+                }
+                const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+                const s = (seconds % 60).toString().padStart(2, '0');
+                if (timerEl) timerEl.textContent = `⏳ Oferta expira em: ${m}:${s}`;
+            }, 1000);
+        }
+
+        function closePrize() {
+            const backdrop = document.getElementById('prize-backdrop');
+            const popup = document.getElementById('prize-popup');
+            if (!backdrop || !popup) return;
+            popup.classList.remove('show');
+            setTimeout(() => {
+                backdrop.style.display = 'none';
+                popup.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 400);
+            if (prizeTimerInterval) clearInterval(prizeTimerInterval);
+        }
+
+        function launchConfetti() {
+            const colors = ['#FFD700', '#FF0055', '#9B00FF', '#00C853', '#FF6B00', '#fff'];
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'confetti-particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+                particle.style.animationDelay = (Math.random() * 0.5) + 's';
+                particle.style.width = (6 + Math.random() * 8) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 4000);
+            }
+        }
+
+        // Trigger prize popup only when user scrolls to plans and deliberates (3s)
+        let _prizeTimer = null;
+        let _prizeTriggered = false;
+
+        const plansObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !_prizeTriggered && !prizeShown) {
+                    // Usuário está vendo os planos, conta 3 segundos
+                    _prizeTimer = setTimeout(() => {
+                        if (!prizeShown) showPrize();
+                        _prizeTriggered = true;
+                    }, 3500);
+                } else {
+                    // Saiu da seção antes de dar o tempo, cancela o popup
+                    if (_prizeTimer) {
+                        clearTimeout(_prizeTimer);
+                        _prizeTimer = null;
+                    }
+                }
+            });
+        }, { threshold: 0.3 });
+
+        function initPrizeObserver() {
+            const planosSec = document.getElementById('planos');
+            // Como fallback, se não tiver 'planos', observa o telefone
+            if (planosSec) {
+                plansObserver.observe(planosSec);
+            } else {
+                plansObserver.observe(document.getElementById('phone-section'));
+            }
+        }
+
+        // Initialize observer when user passes gate or is already verified
+        const origAccept = window.acceptGate;
+        window.acceptGate = function() {
+            if(origAccept) origAccept();
+            initPrizeObserver();
+        };
+
+        if (sessionStorage.getItem('ageVerified') === 'true') {
+            initPrizeObserver();
+        }
+
+        // ==========================================
+        // 5. MÓDULO DE SEGURANÇA E ANTI-CHEAT
+        // ==========================================
+        let cheatAttempts = 0;
+
+        function initSecurity() {
+            // Bloqueio de Teclas F12, Ctrl+Shift+I, etc
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'F12' || 
+                   (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+                   (e.ctrlKey && e.key === 'U') ||
+                   (e.ctrlKey && e.key === 'S')) {
+                    e.preventDefault();
+                    triggerSecurityAlert();
+                    return false;
+                }
+            });
+
+            // Anti-DevTools Loop
+            /* 
+            setInterval(function() {
+                const before = new Date().getTime();
+                debugger; // Se o devtools estiver aberto, ele pausa aqui
+                const after = new Date().getTime();
+                if (after - before > 100) { // Demorou mais que 100ms
+                    triggerSecurityAlert();
+                }
+            }, 2000);
+            */
+
+            // Detectar mudanças no tamanho da janela que indicam DevTools
+            const threshold = 160;
+            window.addEventListener('resize', function() {
+                if (window.outerWidth - window.innerWidth > threshold || 
+                    window.outerHeight - window.innerHeight > threshold) {
+                    // Não é 100% preciso, mas ajuda no mobile/desktop
+                }
+            });
+
+            // MutationObserver para evitar remoção de classes Blur
+            setupObserver();
+        }
+
+        function triggerSecurityAlert() {
+            cheatAttempts++;
+            if(cheatAttempts >= 3) {
+                document.getElementById('anti-cheat-overlay').style.display = 'flex';
+                document.body.innerHTML = ''; // Destrói o DOM
+            } else {
+                console.warn("Ação não permitida.");
+            }
+        }
+
+        function setupObserver() {
+            const targetNode = document.getElementById('photo-grid');
+            if(!targetNode) return;
+
+            const config = { attributes: true, childList: true, subtree: true };
+            const callback = function(mutationsList, observer) {
+                for(const mutation of mutationsList) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        const el = mutation.target;
+                        // Se tentou remover a classe blur de um item protegido
+                        if (el.id && el.id.includes('img-container') && !el.classList.contains('photo-free')) {
+                            if (!el.classList.contains('photo-blur') && !el.classList.contains('photo-super-blur') && !el.classList.contains('card-view-all')) {
+                                triggerSecurityAlert();
+                                // Re-renderizar galeria para punir o bypass
+                                renderGallery();
+                            }
+                        }
+                    }
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                        // Impedir colocar filter: none inline
+                        const el = mutation.target;
+                        if(el.tagName === 'IMG' && el.style.filter === 'none') {
+                            el.style.filter = '';
+                            triggerSecurityAlert();
+                        }
+                    }
+                }
+            };
+            const observer = new MutationObserver(callback);
+            observer.observe(targetNode, config);
+        }
+        // ==========================================
+        // 8. SALES NOTIFICATIONS
+        // ==========================================
+        const firstNames = ['Lucas', 'Matheus', 'Pedro', 'João', 'Rafael', 'Gabriel', 'Tiago', 'Bruno', 'Felipe', 'Carlos', 'Marcos', 'André', 'Gustavo', 'Victor'];
+        const lastInitials = ['M.', 'S.', 'A.', 'C.', 'P.', 'R.', 'F.', 'L.', 'T.', 'V.'];
+        const plansList = ['Acesso VIP', 'Acesso Premium 👑', 'Plano Anual', 'Plano Mensal'];
+        const actionsList = ['acabou de assinar', 'desbloqueou o', 'entrou para o'];
+        const timesList = ['agora mesmo', 'há 2 minutos', 'há 5 minutos', 'há 10 minutos', 'agora mesmo', 'agora mesmo'];
+
+        const notifEl = document.getElementById('sales-notification');
+        const notifText = document.getElementById('sales-text');
+
+        function showRandomNotification() {
+            if (!notifEl || !notifText) return;
+            
+            // Randomize content
+            const name = escapeHTML(firstNames[Math.floor(Math.random() * firstNames.length)] + ' ' + lastInitials[Math.floor(Math.random() * lastInitials.length)]);
+            const plan = escapeHTML(plansList[Math.floor(Math.random() * plansList.length)]);
+            const action = escapeHTML(actionsList[Math.floor(Math.random() * actionsList.length)]);
+            const time = escapeHTML(timesList[Math.floor(Math.random() * timesList.length)]);
+
+            notifText.innerHTML = `
+                <strong>${name}</strong> ${action} o <strong>${plan}</strong>
+                <span class="sales-time">${time}</span>
+            `;
+
+            // Show popup
+            notifEl.classList.add('show');
+
+            // Hide after 4.5 seconds
+            setTimeout(() => {
+                notifEl.classList.remove('show');
+            }, 4500);
+        }
+
+        // Loop: show randomly between 8 to 15 seconds
+        function scheduleNextNotification() {
+            const nextDelay = Math.floor(Math.random() * (15000 - 8000 + 1)) + 8000;
+            setTimeout(() => {
+                showRandomNotification();
+                scheduleNextNotification();
+            }, nextDelay);
+        }
+
+        // Start loop 2 seconds after the page loads
+        setTimeout(() => {
+            showRandomNotification();
+            scheduleNextNotification();
+        }, 2000);
+
+        // ==========================================
+        // 9. CONFIGURAÇÕES DO SITE (POPUP)
+        // ==========================================
+        async function checkPrizeSetting() {
+            try {
+                // Checa se o supabaseClient existe (configurado)
+                if (typeof supabaseClient === 'undefined') return;
+
+                const { data, error } = await supabaseClient
+                    .from('settings')
+                    .select('value')
+                    .eq('key', 'prize_popup_enabled')
+                    .single();
+
+                if (error) return;
+
+                if (data && data.value === 'true') {
+                    window._prizePopupEnabled = true;
+                    // Se estiver ativado, mostra o popup após 12 segundos
+                    setTimeout(() => {
+                        showPrize();
+                    }, 12000);
+                } else {
+                    window._prizePopupEnabled = false;
+                }
+            } catch (e) {
+                console.warn('Erro ao checar configurações:', e);
+            }
+        }
+        checkPrizeSetting();
+
+    </script>
+</body>
+</html>

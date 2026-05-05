@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Quartinho da Bely</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --bg-panel: #111;
+            --hot-pink: #FF007F;
+            --gold: #f5c842;
+            --text-main: #fff;
+            --text-muted: #888;
+            --border: #333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #000;
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(90deg, #fff, var(--hot-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 30px;
+            padding: 40px;
+            flex: 1;
+        }
+
+        /* --- SIDEBAR UPLOAD --- */
+        .upload-section {
+            background: var(--bg-panel);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            height: fit-content;
+            position: sticky;
+            top: 40px;
+        }
+
+        .upload-section h2 {
+            font-size: 18px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 10px; font-size: 14px; font-weight: 600; color: #ccc; }
+        .standard-file-input {
+            width: 100%;
+            padding: 12px;
+            background: #000;
+            color: #fff;
+            border: 1px dashed #666;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            margin-bottom: 15px;
+        }
+        .standard-file-input:hover { border-color: var(--hot-pink); }
+
+        /* Preview local */
+        .preview-box {
+            margin-top: 10px; display: none; border-radius: 8px; overflow: hidden;
+            border: 1px solid #333; background: #000;
+        }
+        .preview-box img, .preview-box video {
+            width: 100%; height: 180px; object-fit: cover; display: block;
+        }
+
+        select {
+            width: 100%; padding: 14px; background: #000; color: white;
+            border: 1px solid #444; border-radius: 8px; font-family: inherit; font-size: 14px;
+            outline: none; cursor: pointer;
+            appearance: none;
+        }
+        select:focus { border-color: var(--hot-pink); }
+
+        .btn-upload {
+            background: linear-gradient(135deg, #FF007F, #b30059);
+            color: white; border: none; padding: 16px; border-radius: 8px;
+            font-weight: 700; font-family: inherit; font-size: 16px;
+            cursor: pointer; width: 100%; transition: transform 0.2s;
+            text-transform: uppercase; letter-spacing: 1px; margin-top: 10px;
+        }
+        .btn-upload:hover { transform: scale(1.02); }
+        .btn-upload:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        /* --- GALERIA GRID --- */
+        .gallery-section {
+            background: var(--bg-panel);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .gallery-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 25px; border-bottom: 1px solid #222; padding-bottom: 15px;
+        }
+        .gallery-header h2 { font-size: 20px; }
+        .total-count { background: #222; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; color: var(--hot-pink); }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .media-card {
+            background: #000; border-radius: 12px; overflow: hidden;
+            border: 1px solid #222; position: relative;
+            transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column;
+            cursor: grab;
+        }
+        .media-card:hover { border-color: #444; transform: translateY(-3px); }
+        .media-card.dragging {
+            opacity: 0.4;
+            border-color: var(--hot-pink);
+            transform: scale(0.97);
+            box-shadow: 0 0 30px rgba(255,0,127,0.4);
+            cursor: grabbing;
+        }
+        .media-card.drag-over {
+            border-color: var(--hot-pink);
+            box-shadow: 0 0 20px rgba(255,0,127,0.3);
+            transform: scale(1.02);
+        }
+        .drag-handle {
+            position: absolute; top: 10px; right: 10px; z-index: 10;
+            background: rgba(0,0,0,0.6); border-radius: 6px;
+            padding: 4px 6px; font-size: 14px; color: #aaa;
+            cursor: grab; line-height: 1;
+            backdrop-filter: blur(4px);
+        }
+
+        .media-thumb {
+            width: 100%; height: 220px; position: relative; background: #0a0a0a;
+        }
+        .media-thumb img, .media-thumb video {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+
+        .media-badge {
+            position: absolute; top: 10px; left: 10px;
+            padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 1px; backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .badge-gratis { background: rgba(255,255,255,0.9); color: #000; }
+        .badge-vip { background: rgba(255,0,127,0.9); color: #fff; }
+        .badge-premium { background: linear-gradient(135deg, var(--gold), #d4af37); color: #000; }
+
+        .media-actions {
+            padding: 12px; display: flex; justify-content: space-between; align-items: center;
+            background: #111; border-top: 1px solid #222;
+        }
+        .media-date { font-size: 11px; color: #666; }
+        .btn-delete {
+            background: rgba(255,0,0,0.1); color: #ff4444; border: 1px solid rgba(255,0,0,0.3);
+            padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-delete:hover { background: #ff4444; color: white; }
+
+        /* Botão Salvar Ordem */
+        .btn-save-order {
+            background: linear-gradient(135deg, var(--gold), #d4a820);
+            color: #000; border: none; padding: 10px 20px; border-radius: 8px;
+            font-weight: 800; font-family: inherit; font-size: 13px;
+            cursor: pointer; transition: transform 0.2s, opacity 0.2s;
+            display: none;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .btn-save-order.visible { display: inline-flex; align-items: center; gap: 6px; }
+        .btn-save-order:hover { transform: scale(1.04); }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed; bottom: 30px; right: 30px; background: #222; color: white;
+            padding: 16px 24px; border-radius: 12px; border-left: 4px solid var(--hot-pink);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-weight: 600; font-size: 14px;
+            transform: translateX(120%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 9999;
+        }
+        .toast.show { transform: translateX(0); }
+        .toast.success { border-left-color: #00e676; }
+        .toast.error { border-left-color: #ff3333; }
+
+        /* Toggle Switch */
+        .toggle-row {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px 0; border-bottom: 1px solid #1e1e1e;
+        }
+        .toggle-row:last-child { border-bottom: none; }
+        .toggle-label { font-size: 14px; font-weight: 600; }
+        .toggle-label small { display: block; font-size: 11px; color: #666; font-weight: 400; margin-top: 2px; }
+        .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; inset: 0;
+            background: #333; border-radius: 26px; transition: 0.3s;
+        }
+        .slider:before {
+            content: ''; position: absolute; height: 20px; width: 20px;
+            left: 3px; bottom: 3px; background: white; border-radius: 50%;
+            transition: 0.3s;
+        }
+        input:checked + .slider { background: var(--hot-pink); }
+        input:checked + .slider:before { transform: translateX(24px); }
+
+        .empty-state {
+            grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #555;
+        }
+        .empty-state span { font-size: 40px; display: block; margin-bottom: 10px; }
+
+        /* Loader */
+        .loader {
+            border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--hot-pink);
+            border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;
+            display: inline-block; vertical-align: middle; margin-right: 10px; display: none;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media(max-width: 900px) {
+            .dashboard { grid-template-columns: 1fr; padding: 20px; }
+            .upload-section { position: static; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- OVERLAY DE LOGIN (Supabase Auth) -->
+    <div id="auth-overlay" style="position:fixed; inset:0; background:#0a0a0a; z-index:100000; display:flex; align-items:center; justify-content:center; flex-direction:column; padding:20px;">
+        <h1 style="color:var(--hot-pink); margin-bottom:20px;">🔒 Acesso Restrito</h1>
+        <p style="color:#aaa; text-align:center; margin-bottom:30px; font-size:14px; max-width:300px;">
+            Área protegida. Para acessar o painel de administração, insira seu email e senha de administrador configurado no Supabase.
+        </p>
+        <input type="email" id="auth-email" placeholder="E-mail" style="width:100%; max-width:300px; padding:15px; border-radius:10px; background:#111; border:1px solid #333; color:#fff; margin-bottom:15px; font-family:'Montserrat', sans-serif;">
+        <input type="password" id="auth-pass" placeholder="Senha" style="width:100%; max-width:300px; padding:15px; border-radius:10px; background:#111; border:1px solid #333; color:#fff; margin-bottom:20px; font-family:'Montserrat', sans-serif;">
+        <button onclick="loginAdmin()" style="width:100%; max-width:300px; background:var(--hot-pink); color:#fff; padding:15px; border:none; border-radius:10px; font-weight:800; cursor:pointer; font-family:'Montserrat', sans-serif;">ENTRAR</button>
+        <p id="auth-error" style="color:#ff3333; margin-top:15px; font-size:12px; display:none;"></p>
+    </div>
+
+    <header>
+        <div style="display:flex; align-items:center; gap:15px;">
+            <h1>💎 Quartinho Admin</h1>
+            <button onclick="logoutAdmin()" style="background:#222; color:#aaa; border:1px solid #333; padding:5px 10px; border-radius:5px; cursor:pointer; font-size:12px;">Sair</button>
+        </div>
+        <a href="index.html" target="_blank" style="color:#aaa; text-decoration:none; font-size:14px; font-weight:600;">Ver Site Ao Vivo ↗</a>
+    </header>
+
+    <div class="dashboard">
+        <!-- Lado Esquerdo: Formularios Separados -->
+        <aside class="upload-section" style="background:transparent; border:none; padding:0;">
+            
+            <!-- CAIXA 0: CONFIGURAÇÕES DO SITE -->
+            <div style="background: var(--bg-panel); padding: 20px 25px; border-radius: 16px; border: 1px solid var(--border); margin-bottom:20px;">
+                <h2 style="font-size:16px; margin-bottom:4px;">⚙️ Configurações do Site</h2>
+                <p style="font-size:12px; color:#555; margin-bottom:16px;">Ative ou desative recursos da página.</p>
+
+                <div class="toggle-row">
+                    <div class="toggle-label">
+                        🎁 Popup de Desconto
+                        <small>Exibe notificação com oferta especial após alguns segundos</small>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-prize-popup" onchange="saveSetting('prize_popup_enabled', this.checked)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- CAIXA 1: CARROSSEL / GALERIA -->
+            <div style="background: var(--bg-panel); padding: 25px; border-radius: 16px; border: 1px solid var(--border); margin-bottom:20px;">
+                <h2 style="color: var(--hot-pink);">🎡 Gerenciar Carrossel</h2>
+                <p style="font-size:12px; color:#aaa; margin-bottom:15px;">Estas fotos e vídeos aparecerão no carrossel principal do site.</p>
+                
+                <div class="form-group">
+                    <label>Selecione Mídias (Pode escolher várias):</label>
+                    <input type="file" id="file-gallery" accept="image/*,video/*" class="standard-file-input" multiple onchange="previewFiles(this, 'preview-gallery')">
+                    <div id="preview-gallery" class="preview-box" style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 5px;"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>Tipo de Acesso para este lote:</label>
+                    <select id="access-type-gallery">
+                        <option value="gratis">🟢 GRÁTIS (Aberta para todos)</option>
+                        <option value="vip" selected>🟣 VIP (Requer Plano VIP)</option>
+                        <option value="premium">👑 PREMIUM (Acesso Total)</option>
+                    </select>
+                </div>
+
+                <button class="btn-upload" id="btn-gallery" onclick="uploadMultipleMedia()">
+                    SUBIR PARA O CARROSSEL
+                </button>
+            </div>
+
+            <!-- CAIXA 2: CELULAR -->
+            <div style="background: rgba(255,0,127,0.05); padding: 25px; border-radius: 16px; border: 1px solid var(--hot-pink);">
+                <h2 style="color: var(--hot-pink);">📱 Vídeo do Celular</h2>
+                <p style="font-size:12px; color:#aaa; margin-bottom:15px; line-height:1.4;">Este vídeo substitui o que está rodando dentro do celular na tela inicial do site.</p>
+                
+                <div class="form-group">
+                    <label>Selecione um Vídeo (MP4):</label>
+                    <input type="file" id="file-phone" accept="video/mp4,video/webm" class="standard-file-input" onchange="previewFile(this, 'preview-phone')">
+                    <div id="preview-phone" class="preview-box"></div>
+                </div>
+
+                <button class="btn-upload" id="btn-phone" style="background:#111; border:1px solid var(--hot-pink);" onclick="uploadMedia('phone')">
+                    SUBSTITUIR VÍDEO DO CELULAR
+                </button>
+            </div>
+
+            <!-- CAIXA 3: DEPOIMENTOS -->
+            <div style="background: var(--bg-panel); padding: 25px; border-radius: 16px; border: 1px solid var(--border); margin-top:20px;">
+                <h2>💬 Adicionar Depoimento</h2>
+                <p style="font-size:12px; color:#aaa; margin-bottom:15px;">Adicione feedbacks de clientes para a página.</p>
+                
+                <div class="form-group">
+                    <label>Nome do Cliente:</label>
+                    <input type="text" id="testim-name" class="standard-file-input" style="padding:10px;" placeholder="Ex: Lucas M.">
+                </div>
+                
+                <div class="form-group">
+                    <label>Avaliação / Texto:</label>
+                    <textarea id="testim-text" class="standard-file-input" style="padding:10px; resize:vertical; min-height:80px;" placeholder="O que ele disse?"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Selo do Plano:</label>
+                    <select id="testim-plan">
+                        <option value="Assinante VIP">Assinante VIP</option>
+                        <option value="Assinante Premium">Assinante Premium</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Foto do Cliente (Opcional):</label>
+                    <input type="file" id="testim-avatar" accept="image/*" class="standard-file-input" onchange="previewFile(this, 'preview-testim')">
+                    <div id="preview-testim" class="preview-box"></div>
+                </div>
+
+                <button class="btn-upload" id="btn-testim" style="background:#333;" onclick="uploadTestimonial()">
+                    SALVAR DEPOIMENTO
+                </button>
+            </div>
+
+        </aside>
+
+        <!-- Lado Direito: Grid de Midias -->
+        <section class="gallery-section">
+            <div class="gallery-header" style="margin-bottom: 15px;">
+                <div>
+                    <h2>Carrossel do Site</h2>
+                    <p style="font-size:12px; color:#666; margin-top:4px;">✋ Arraste os cards para reordenar</p>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <button class="btn-save-order" id="btn-save-order" onclick="saveOrder()">💾 Salvar Ordem</button>
+                    <span class="total-count" id="total-count">0 mídias</span>
+                </div>
+            </div>
+
+            <div class="media-grid" id="media-grid">
+                <!-- Itens carregados via JS -->
+                <div class="empty-state">Carregando banco de dados...</div>
+            </div>
+
+            <!-- Divisor para os depoimentos -->
+            <hr style="border:0; border-top:1px solid #222; margin:40px 0 20px;">
+            
+            <div class="gallery-header" style="margin-bottom: 15px;">
+                <h2>Depoimentos Ativos</h2>
+            </div>
+            
+            <div class="media-grid" id="testim-grid">
+                <div class="empty-state" style="padding: 20px;">Carregando depoimentos...</div>
+            </div>
+        </section>
+    </div>
+
+    <div class="toast" id="toast">Notificação</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <script>
+        // ==========================================
+        // AUTENTICAÇÃO SUPABASE
+        // ==========================================
+        async function checkAuth() {
+            const { data } = await supabaseClient.auth.getSession();
+            if (data.session) {
+                document.getElementById('auth-overlay').style.display = 'none';
+                loadInitialData(); // Carrega os dados se estiver autenticado
+            } else {
+                document.getElementById('auth-overlay').style.display = 'flex';
+            }
+        }
+        
+        async function loginAdmin() {
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-pass').value;
+            const errEl = document.getElementById('auth-error');
+            
+            if(!email || !password) {
+                errEl.textContent = "Preencha todos os campos.";
+                errEl.style.display = 'block';
+                return;
+            }
+
+            errEl.style.display = 'none';
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+            
+            if (error) {
+                errEl.textContent = "Erro: " + error.message;
+                errEl.style.display = 'block';
+            } else {
+                checkAuth();
+            }
+        }
+
+        async function logoutAdmin() {
+            await supabaseClient.auth.signOut();
+            window.location.reload();
+        }
+
+        // Executar checagem na inicialização
+        setTimeout(checkAuth, 300);
+
+        // UI Helpers
+        function showToast(msg, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.className = `toast show ${type}`;
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        // Preview dinâmico para múltiplos arquivos
+        function previewFiles(input, previewContainerId) {
+            const container = document.getElementById(previewContainerId);
+            container.innerHTML = '';
+            container.style.display = 'none';
+
+            if (input.files && input.files.length > 0) {
+                Array.from(input.files).forEach(file => {
+                    const fileURL = URL.createObjectURL(file);
+                    const wrapper = document.createElement('div');
+                    wrapper.style.height = '60px';
+                    wrapper.style.borderRadius = '4px';
+                    wrapper.style.overflow = 'hidden';
+                    
+                    if (file.type.startsWith('image/')) {
+                        wrapper.innerHTML = `<img src="${fileURL}" style="width:100%; height:100%; object-fit:cover;">`;
+                    } else if (file.type.startsWith('video/')) {
+                        wrapper.innerHTML = `<video src="${fileURL}" style="width:100%; height:100%; object-fit:cover;"></video>`;
+                    }
+                    container.appendChild(wrapper);
+                });
+                container.style.display = 'grid';
+            }
+        }
+
+        function previewFile(input, previewContainerId) {
+            const container = document.getElementById(previewContainerId);
+            container.innerHTML = '';
+            container.style.display = 'none';
+
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const fileURL = URL.createObjectURL(file);
+                
+                if (file.type.startsWith('image/')) {
+                    container.innerHTML = `<img src="${fileURL}">`;
+                } else if (file.type.startsWith('video/')) {
+                    container.innerHTML = `<video src="${fileURL}" autoplay muted loop></video>`;
+                }
+                container.style.display = 'block';
+            }
+        }
+
+        function generateFileName(originalName) {
+            const ext = originalName.split('.').pop();
+            return Date.now() + '-' + Math.random().toString(36).substring(7) + '.' + ext;
+        }
+
+        async function uploadMultipleMedia() {
+            const fileInput = document.getElementById('file-gallery');
+            const accessType = document.getElementById('access-type-gallery').value;
+            const btn = document.getElementById('btn-gallery');
+
+            if (!fileInput.files || fileInput.files.length === 0) {
+                showToast('Selecione pelo menos uma foto!', 'error');
+                return;
+            }
+
+            const files = Array.from(fileInput.files);
+            const originalBtnText = btn.innerHTML;
+            btn.disabled = true;
+
+            let successCount = 0;
+            let failCount = 0;
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                btn.innerHTML = `ENVIANDO ${i+1}/${files.length}...`;
+                
+                try {
+                    const fileName = generateFileName(file.name);
+                    
+                    // 1. Storage
+                    const { data: sData, error: sErr } = await supabaseClient.storage
+                        .from('arquivos_vip')
+                        .upload(fileName, file);
+                    if (sErr) throw sErr;
+
+                    // 2. URL
+                    const { data: urlData } = supabaseClient.storage
+                        .from('arquivos_vip')
+                        .getPublicUrl(fileName);
+                    
+                    // 3. Banco
+                    const { error: dbErr } = await supabaseClient
+                        .from('media')
+                        .insert([{ url: urlData.publicUrl, tipo: accessType }]);
+                    if (dbErr) throw dbErr;
+
+                    successCount++;
+                } catch (e) {
+                    console.error(e);
+                    failCount++;
+                }
+            }
+
+            showToast(`${successCount} fotos adicionadas com sucesso!` + (failCount > 0 ? ` (${failCount} erros)` : ''), successCount > 0 ? 'success' : 'error');
+            
+            fileInput.value = '';
+            document.getElementById('preview-gallery').style.display = 'none';
+            btn.disabled = false;
+            btn.innerHTML = originalBtnText;
+            loadMedia();
+        }
+
+        async function uploadMedia(mode) {
+            // Esta função agora serve apenas para o vídeo do celular
+            let fileInput = document.getElementById('file-phone');
+            let accessType = 'phone-video';
+            let btn = document.getElementById('btn-phone');
+
+            if (!fileInput.files || fileInput.files.length === 0) {
+                showToast('Selecione o vídeo do celular!', 'error');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const fileName = generateFileName(file.name);
+            const originalBtnText = btn.innerHTML;
+            
+            btn.disabled = true;
+            btn.innerHTML = 'SUBSTITUINDO...';
+
+            try {
+                // Remove vídeo antigo do celular
+                await supabaseClient.from('media').delete().eq('tipo', 'phone-video');
+
+                const { data: sData, error: sErr } = await supabaseClient.storage
+                    .from('arquivos_vip')
+                    .upload(fileName, file);
+                if (sErr) throw sErr;
+
+                const { data: urlData } = supabaseClient.storage
+                    .from('arquivos_vip')
+                    .getPublicUrl(fileName);
+
+                await supabaseClient.from('media').insert([{ url: urlData.publicUrl, tipo: 'phone-video' }]);
+
+                showToast('Vídeo do celular atualizado!', 'success');
+                fileInput.value = '';
+                document.getElementById('preview-phone').style.display = 'none';
+                loadMedia();
+            } catch (error) {
+                showToast("Erro: " + error.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalBtnText;
+            }
+        }
+
+        // Variável global para rastrear se a ordem mudou
+        let orderChanged = false;
+
+        async function loadMedia() {
+            const grid = document.getElementById('media-grid');
+            const countEl = document.getElementById('total-count');
+            orderChanged = false;
+            document.getElementById('btn-save-order').classList.remove('visible');
+            
+            try {
+                let isSupabaseConfigured = true;
+                try {
+                    if (typeof window.supabase === 'undefined' || typeof SUPABASE_URL === 'undefined' || SUPABASE_URL.includes('COLE_')) {
+                        isSupabaseConfigured = false;
+                    }
+                } catch(e) { isSupabaseConfigured = false; }
+
+                if (!isSupabaseConfigured) {
+                    grid.innerHTML = `<div class="empty-state"><span>⚠️</span>O arquivo <b>supabase-config.js</b> não foi configurado.</div>`;
+                    return;
+                }
+
+                const { data, error } = await supabaseClient
+                    .from('media')
+                    .select('*')
+                    .order('sort_order', { ascending: true })
+                    .order('created_at', { ascending: true });
+
+                if (error) throw error;
+
+                // Filtra apenas mídias da galeria (sem o vídeo do celular)
+                const galleryItems = data.filter(i => i.tipo !== 'phone-video');
+                const phoneItems  = data.filter(i => i.tipo === 'phone-video');
+
+                countEl.textContent = galleryItems.length + (galleryItems.length === 1 ? ' Mídia' : ' Mídias');
+
+                if (galleryItems.length === 0) {
+                    grid.innerHTML = `
+                        <div class="empty-state">
+                            <span>📷</span>
+                            Sua galeria está vazia.<br>Use o painel ao lado para adicionar a primeira mídia!
+                        </div>`;
+                } else {
+                    grid.innerHTML = '';
+                    galleryItems.forEach(item => buildMediaCard(item, grid));
+                    initDragAndDrop(grid);
+                }
+
+                // Renderiza o vídeo do celular separado (não é reordenável)
+                renderPhoneVideoStatus(phoneItems);
+
+            } catch (error) {
+                console.error(error);
+                grid.innerHTML = `<div class="empty-state"><span>❌</span>Erro ao conectar com o banco.</div>`;
+            }
+        }
+
+        function buildMediaCard(item, grid) {
+            const card = document.createElement('div');
+            card.className = 'media-card';
+            card.draggable = true;
+            card.dataset.id = item.id;
+
+            const isVideo = item.url.match(/\.(mp4|webm|ogg)$/i);
+            const mediaTag = isVideo 
+                ? `<video src="${item.url}" muted loop onmouseover="this.play()" onmouseout="this.pause()"></video>` 
+                : `<img src="${item.url}">`;
+
+            let badgeClass = 'badge-gratis', badgeLabel = 'GRÁTIS';
+            if (item.tipo === 'vip')     { badgeClass = 'badge-vip';     badgeLabel = 'VIP'; }
+            if (item.tipo === 'premium') { badgeClass = 'badge-premium'; badgeLabel = 'PREMIUM 👑'; }
+
+            const dataFormatada = new Date(item.created_at).toLocaleDateString('pt-BR');
+
+            card.innerHTML = `
+                <div class="drag-handle" title="Arraste para reordenar">☰</div>
+                <div class="media-thumb">
+                    ${mediaTag}
+                    <div class="media-badge ${badgeClass}">${badgeLabel}</div>
+                </div>
+                <div class="media-actions">
+                    <span class="media-date">${dataFormatada}</span>
+                    <button class="btn-delete" onclick="deleteMedia(${item.id}, '${item.url}')">Excluir</button>
+                </div>
+            `;
+            grid.appendChild(card);
+        }
+
+        function renderPhoneVideoStatus(items) {
+            // Pequeno indicador abaixo do grid informando o vídeo do celular
+            let existing = document.getElementById('phone-video-status');
+            if (!existing) {
+                existing = document.createElement('div');
+                existing.id = 'phone-video-status';
+                existing.style.cssText = 'margin-top:16px; padding:12px 16px; background:#111; border-radius:10px; border:1px solid #333; font-size:13px; color:#aaa; display:flex; align-items:center; gap:10px;';
+                document.querySelector('.gallery-section').appendChild(existing);
+            }
+            if (items.length > 0) {
+                existing.innerHTML = `📱 <b style="color:#fff;">Vídeo do Celular:</b> configurado (altere na caixa ao lado)`;
+            } else {
+                existing.innerHTML = `📱 <b style="color:#fff;">Vídeo do Celular:</b> <span style="color:var(--hot-pink);">não configurado</span>`;
+            }
+        }
+
+        // =============================================
+        // DRAG & DROP PARA REORDENAR CARROSSEL
+        // =============================================
+        let dragSrcEl = null;
+
+        function initDragAndDrop(grid) {
+            const cards = grid.querySelectorAll('.media-card');
+
+            cards.forEach(card => {
+                card.addEventListener('dragstart', onDragStart);
+                card.addEventListener('dragover',  onDragOver);
+                card.addEventListener('dragenter', onDragEnter);
+                card.addEventListener('dragleave', onDragLeave);
+                card.addEventListener('drop',      onDrop);
+                card.addEventListener('dragend',   onDragEnd);
+            });
+        }
+
+        function onDragStart(e) {
+            dragSrcEl = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', this.dataset.id);
+        }
+
+        function onDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function onDragEnter(e) {
+            if (this !== dragSrcEl) this.classList.add('drag-over');
+        }
+
+        function onDragLeave(e) {
+            this.classList.remove('drag-over');
+        }
+
+        function onDrop(e) {
+            e.stopPropagation();
+            if (dragSrcEl === this) return;
+
+            const grid = this.parentNode;
+            const cards = Array.from(grid.querySelectorAll('.media-card'));
+            const srcIdx = cards.indexOf(dragSrcEl);
+            const dstIdx = cards.indexOf(this);
+
+            // Reinsere o card arrastado na nova posicao
+            if (srcIdx < dstIdx) {
+                grid.insertBefore(dragSrcEl, this.nextSibling);
+            } else {
+                grid.insertBefore(dragSrcEl, this);
+            }
+
+            this.classList.remove('drag-over');
+
+            // Marca que a ordem mudou e exibe o botão de salvar
+            orderChanged = true;
+            document.getElementById('btn-save-order').classList.add('visible');
+
+            return false;
+        }
+
+        function onDragEnd(e) {
+            document.querySelectorAll('.media-card').forEach(c => {
+                c.classList.remove('dragging', 'drag-over');
+            });
+        }
+
+        async function saveOrder() {
+            const grid = document.getElementById('media-grid');
+            const cards = Array.from(grid.querySelectorAll('.media-card'));
+            const btn = document.getElementById('btn-save-order');
+
+            btn.textContent = 'Salvando...';
+            btn.disabled = true;
+
+            try {
+                // Atualiza sort_order de cada card na ordem atual
+                for (let i = 0; i < cards.length; i++) {
+                    const id = cards[i].dataset.id;
+                    await supabaseClient
+                        .from('media')
+                        .update({ sort_order: i })
+                        .eq('id', id);
+                }
+                showToast('✅ Ordem do carrossel salva com sucesso!', 'success');
+                orderChanged = false;
+                btn.classList.remove('visible');
+            } catch (e) {
+                showToast('Erro ao salvar ordem: ' + e.message, 'error');
+            } finally {
+                btn.innerHTML = '💾 Salvar Ordem';
+                btn.disabled = false;
+            }
+        }
+
+        async function deleteMedia(id, url) {
+            if(!confirm('Certeza que deseja excluir permanentemente esta mídia do site?')) return;
+            
+            try {
+                const fileName = url.split('/').pop();
+
+                // 1. Deletar do banco
+                await supabaseClient.from('media').delete().eq('id', id);
+                
+                // 2. Deletar do storage (tenta, mas não falha se não achar)
+                await supabaseClient.storage.from('arquivos_vip').remove([fileName]);
+
+                showToast('Mídia excluída com sucesso!', 'success');
+                loadMedia();
+            } catch (error) {
+                showToast("Erro ao excluir: " + error.message, 'error');
+            }
+        }
+
+        // =====================================
+        // LOGICA DE DEPOIMENTOS
+        // =====================================
+        async function uploadTestimonial() {
+            const nameInput = document.getElementById('testim-name').value;
+            const textInput = document.getElementById('testim-text').value;
+            const planInput = document.getElementById('testim-plan').value;
+            const fileInput = document.getElementById('testim-avatar');
+            const btn = document.getElementById('btn-testim');
+
+            if (!nameInput || !textInput) {
+                showToast('Preencha o nome e o texto do depoimento!', 'error');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'SALVANDO...';
+
+            try {
+                let avatarUrl = '';
+                
+                // Se enviou foto, faz upload
+                if (fileInput.files && fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    const fileName = 'avatar_' + generateFileName(file.name);
+                    
+                    const { error: storageError } = await supabaseClient.storage
+                        .from('arquivos_vip')
+                        .upload(fileName, file);
+                    if (storageError) throw storageError;
+
+                    const { data: urlData } = supabaseClient.storage
+                        .from('arquivos_vip')
+                        .getPublicUrl(fileName);
+                    avatarUrl = urlData.publicUrl;
+                }
+
+                const { error: dbError } = await supabaseClient
+                    .from('testimonials')
+                    .insert([{ 
+                        nome: nameInput, 
+                        texto: textInput, 
+                        plano: planInput, 
+                        avatar_url: avatarUrl 
+                    }]);
+
+                if (dbError) throw dbError;
+
+                showToast('Depoimento salvo com sucesso!', 'success');
+                
+                // Limpa o form
+                document.getElementById('testim-name').value = '';
+                document.getElementById('testim-text').value = '';
+                document.getElementById('testim-avatar').value = '';
+                document.getElementById('preview-testim').style.display = 'none';
+
+                loadTestimonials();
+
+            } catch (error) {
+                showToast("Erro ao salvar depoimento: " + error.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = 'SALVAR DEPOIMENTO';
+            }
+        }
+
+        async function loadTestimonials() {
+            const grid = document.getElementById('testim-grid');
+            
+            try {
+                const { data, error } = await supabaseClient
+                    .from('testimonials')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                if (!data || data.length === 0) {
+                    grid.innerHTML = `<div class="empty-state" style="padding:20px; font-size:14px;">Nenhum depoimento cadastrado.</div>`;
+                    return;
+                }
+
+                grid.innerHTML = '';
+                data.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'media-card';
+                    card.style.flexDirection = 'column';
+                    card.style.alignItems = 'flex-start';
+                    card.style.height = 'auto';
+                    card.style.padding = '15px';
+                    card.style.background = '#111';
+
+                    const safeName = escapeHTML(item.nome);
+                    const safePlan = escapeHTML(item.plano);
+                    const safeText = escapeHTML(item.texto);
+
+                    card.innerHTML = `
+                        <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                            ${item.avatar_url 
+                                ? `<img src="${escapeHTML(item.avatar_url)}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">`
+                                : `<div style="width:40px; height:40px; border-radius:50%; background:#333; display:flex; align-items:center; justify-content:center; font-weight:bold;">${safeName.charAt(0)}</div>`
+                            }
+                            <div>
+                                <h4 style="margin:0; font-size:14px;">${safeName}</h4>
+                                <span style="font-size:10px; color:#aaa; background:#222; padding:2px 6px; border-radius:4px;">${safePlan}</span>
+                            </div>
+                        </div>
+                        <p style="font-size:12px; color:#aaa; font-style:italic; margin-bottom:15px; flex:1;">"${safeText}"</p>
+                        <button class="btn-delete" style="align-self:flex-end;" onclick="deleteTestimonial(${item.id})">Excluir</button>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        async function deleteTestimonial(id) {
+            if(!confirm('Deseja excluir este depoimento?')) return;
+            try {
+                await supabaseClient.from('testimonials').delete().eq('id', id);
+                showToast('Depoimento excluído!', 'success');
+                loadTestimonials();
+            } catch(e) {
+                showToast("Erro: " + e.message, 'error');
+            }
+        }
+
+        // Função auxiliar para inicializar os dados
+        function loadInitialData() {
+            loadMedia();
+            loadTestimonials();
+            loadSettings();
+        }
+        // CONFIGURAÇÕES DO SITE
+        // =============================================
+        async function loadSettings() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('settings')
+                    .select('key, value');
+                if (error) return; // tabela pode não existir ainda
+
+                data.forEach(row => {
+                    if (row.key === 'prize_popup_enabled') {
+                        document.getElementById('toggle-prize-popup').checked = (row.value === 'true');
+                    }
+                });
+            } catch(e) {
+                console.warn('Tabela settings não encontrada. Rode o SQL de configuração.');
+            }
+        }
+
+        async function saveSetting(key, value) {
+            try {
+                // Tenta update primeiro; se não existir, insere
+                const { data: existing } = await supabaseClient
+                    .from('settings').select('key').eq('key', key).single();
+
+                if (existing) {
+                    await supabaseClient.from('settings').update({ value: String(value) }).eq('key', key);
+                } else {
+                    await supabaseClient.from('settings').insert([{ key, value: String(value) }]);
+                }
+
+                const label = value ? 'ATIVADO ✅' : 'DESATIVADO ⏸️';
+                showToast(`Popup de Desconto ${label}`, value ? 'success' : 'error');
+            } catch(e) {
+                showToast('Erro ao salvar configuração: ' + e.message, 'error');
+            }
+        }
+
+    </script>
+</body>
+</html>
